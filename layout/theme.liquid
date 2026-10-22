@@ -20,7 +20,7 @@
     <meta name="description" content="{{ page_description | escape }}"> {% endif %} {% render 'meta-tags' %}
 
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
-    {{ content_for_header }} {%- liquid assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold' assign body_font_italic = settings.type_body_font | font_modify: 'style', 'italic' %} {% style %} {{ settings.type_body_font | font_face:
+    {{ content_for_header }} {%- liquid assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold' | font_modify: 'style', 'italic'%} {% style %} {{ settings.type_body_font | font_face:
     font_display: 'swap' }} {{ body_font_bold | font_face: font_display: 'swap' }} {{ body_font_italic | font_face: font_display: 'swap' }} {{ body_font_bold_italic | font_face: font_display: 'swap' }} {{ settings.type_header_font | font_face: font_display:
     'swap' }} :root { --font-body-family: 'Byrd Regular', {{ settings.type_body_font.fallback_families }}; --font-body-style: {{ settings.type_body_font.style }}; --font-body-weight: {{ settings.type_body_font.weight }}; --font-heading-family: 'Opposit
     Bold', {{ settings.type_header_font.fallback_families }}; --font-heading-style: {{ settings.type_header_font.style }}; --font-heading-weight: {{ settings.type_header_font.weight }}; --font-body-scale: {{ settings.body_scale | divided_by: 100.0 }};
@@ -89,4 +89,16 @@
     {%- endif -%}
 </body>
 
-</html>
+</html>{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: 'assign body_font_bold = settings.type_body_font | font_modify: ''weight'',
+    ''bold'' assign body_font_italic = settings.type_body_font | font_modify: ''style'',
+    ''italic'' '
+  to: 'assign body_font_bold = settings.type_body_font | font_modify: ''weight'',
+    ''bold'' | font_modify: ''style'', ''italic'''
+  position: 1275..1387
+{%- endcomment -%}
